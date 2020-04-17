@@ -1,0 +1,20 @@
+.add {
+    color: #07c400;
+    transition: 0.3s
+}
+
+.add:hover {
+    color: #058c00;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.remove{
+    transition:0.3s;
+    color:#ff4040
+}
+.remove:hover{
+    color:#c40000;
+    font-size:20px;
+    cursor: pointer;
+}

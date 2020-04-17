@@ -1,0 +1,8 @@
+.hyperlink {
+    transition: 0.3s;
+}
+
+.hyperlink:hover {
+    text-decoration: none;
+    color:  #0088ff!important;
+}
