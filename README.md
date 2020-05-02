@@ -8,9 +8,9 @@ An app to practice react concepts
 
 App is built with the basic understanding of components and state props, components are classified as:
 
-** `Container Components` which manage state of the application **
+**`Container Components` which manage state of the application**
 
-** `Components` which present state of the container components it receives via props **
+**`Components` which present state of the container components it receives via props**
 
 ### `CSS Modules`
 
