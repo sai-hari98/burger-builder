@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import classes from './NavBar.module.css';
 import Button from '@material-ui/core/Button';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu'
 import SideDrawer from './SideDrawer/SideDrawer'
+import { Link } from 'react-router-dom';
 const NavBar = (props) => {
     const [state, changeState] = useState({ sideDrawer: false });
 
@@ -19,10 +19,13 @@ const NavBar = (props) => {
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item active">
-                        <a className="nav-link" href="#">Burger Builder</a>
+                        <Link to="/burger-builder" className="nav-link">Burger Builder</Link>
                     </li>
                     <li className="nav-item active">
-                        <a className="nav-link" href="#">Checkout</a>
+                        <Link to="/checkout" className="nav-link">Checkout</Link>
+                    </li>
+                    <li className="nav-item active">
+                        <Link to="/orders" className="nav-link">Orders</Link>
                     </li>
                 </ul>
             </div>

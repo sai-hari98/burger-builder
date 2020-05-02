@@ -12,13 +12,14 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error: null
         }
 
-        componentDidMount() {
+        componentWillMount() {
             console.log('Error Handler HOC componentDidMount');
             this.requestInterceptor = axios.interceptors.request.use(request => {
                 this.setState({ error: null });
                 return request;
             });
             this.responseInterceptor = axios.interceptors.response.use(null, error => {
+                console.log('Inside Error');
                 console.log(error);
                 this.setState({ error: error });
             });

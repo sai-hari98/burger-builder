@@ -69,25 +69,34 @@ class BurgerBuilder extends Component {
     }
 
     checkoutHandler = () => {
-        this.setState({ spinner: true });
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Sairam Hari',
-                address: 'no:5 abc street',
-                city: 'chennai',
-                zipcode: '600045'
-            },
-            deliveryMethod: 'fastest'
+        const queryParams = [];
+        for (let ingredient in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(ingredient) + "=" + encodeURIComponent(this.state.ingredients[ingredient]));
         }
-        axiosOrders.post('/orders.json', order).then(response => {
-            console.log(response);
-            this.setState({ purchasing: false, spinner: false });
-        }).catch(error => {
-            console.log(error);
-            this.setState({ purchasing: false, spinner: false });
+        let queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString + '&price=' + this.state.totalPrice
         });
+        // this.setState({ spinner: true });
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Sairam Hari',
+        //         address: 'no:5 abc street',
+        //         city: 'chennai',
+        //         zipcode: '600045'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // axiosOrders.post('/orders.json', order).then(response => {
+        //     console.log(response);
+        //     this.setState({ purchasing: false, spinner: false });
+        // }).catch(error => {
+        //     console.log(error);
+        //     this.setState({ purchasing: false, spinner: false });
+        // });
     }
     render() {
         let context = {

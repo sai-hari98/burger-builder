@@ -20,6 +20,10 @@ CSS Modules to add styles which scopes the class names locally.
 
 Using component lifecycle methods to make async calls for data, for optimization and state management.
 
-### `Axios`
+### [`Axios`](https://github.com/axios/axios)
 
-Using Axios to make http calls to send and receive data.
+Using Axios to make http calls to send and receive data. 
+
+### [`React Routing`](https://github.com/ReactTraining/react-router)
+
+React Routing to give SPA experience to the react app.
