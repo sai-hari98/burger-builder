@@ -27,3 +27,11 @@ Using Axios to make http calls to send and receive data.
 ### [`React Routing`](https://github.com/ReactTraining/react-router)
 
 React Routing to give SPA experience to the react app.
+
+### `Form Validation`
+
+Input validations are done without the use of any third party packages.
+
+### [`MaterialUI`](https://github.com/mui-org/material-ui)
+
+MaterialUI for adding cool UI components to the react app.
