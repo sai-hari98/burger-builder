@@ -89,13 +89,13 @@ class ContactInfo extends Component {
         }
 
         if (validation.required) {
-            isValid = isValid && value != '';
+            isValid = isValid && value.trim() != '';
         }
         if (validation.minlength) {
-            isValid = isValid && value.length >= validation.minlength;
+            isValid = isValid && value.trim().length >= validation.minlength;
         }
         if (validation.maxlength) {
-            isValid = isValid && value.length <= validation.maxlength;
+            isValid = isValid && value.trim().length <= validation.maxlength;
         }
         if (validation.numeric) {
             isValid = isValid && !isNaN(value);
