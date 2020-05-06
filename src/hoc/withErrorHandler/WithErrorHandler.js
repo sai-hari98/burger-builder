@@ -6,6 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Aux from '../Auxillary';
 
+//an hoc to wrap a component with error handler.
+//When error occurs an modal with appropriate message is displayed
 const withErrorHandler = (WrappedComponent, axios) => {
     return class extends Component {
         state = {
@@ -18,6 +20,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
                 this.setState({ error: null });
                 return request;
             });
+            //axios interceptors are used to catch the errors and handle them
             this.responseInterceptor = axios.interceptors.response.use(null, error => {
                 console.log('Inside Error');
                 console.log(error);

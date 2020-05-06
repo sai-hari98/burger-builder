@@ -3,6 +3,7 @@ import axiosOrders from '../../axios-orders';
 import { CircularProgress } from '@material-ui/core';
 import Order from '../../components/Order/Order'
 import withErrorHandler from '../../hoc/withErrorHandler/WithErrorHandler';
+//Component to display the orders placed.
 class Orders extends Component {
 
     state = {

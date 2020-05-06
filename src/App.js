@@ -10,7 +10,11 @@ import { Provider } from 'react-redux';
 import reducer from './store/reducer';
 class App extends Component {
   render() {
+    //redux store creation to maintain a global application state
     const store = createStore(reducer);
+    //BrowserRouter to support routing in the app
+    //Switch - to render only one of the routes
+    //Route - define the component to display for various routes
     return (
       <Provider store={store}>
         <BrowserRouter>

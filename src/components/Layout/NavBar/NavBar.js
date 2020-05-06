@@ -4,6 +4,12 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu'
 import SideDrawer from './SideDrawer/SideDrawer'
 import { Link } from 'react-router-dom';
+
+/**
+ * Navbar component to display a reusable navbar for the application.
+ * Created using bootstrap navbar classes.
+ * @param {*} props 
+ */
 const NavBar = (props) => {
     const [state, changeState] = useState({ sideDrawer: false });
 
@@ -13,6 +19,8 @@ const NavBar = (props) => {
         }
         changeState({ sideDrawer: open });
     }
+
+    //Link to define a router link to route to the component given in 'to' prop
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a className="navbar-brand" href="#">Burger Builder App</a>

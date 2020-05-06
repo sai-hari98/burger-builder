@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import classes from './BuildControl.module.css'
 
+/**
+ * Component to display controls for every ingredient
+ */
 class BuildControl extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {

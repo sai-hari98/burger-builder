@@ -5,6 +5,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+/**
+ * Modal component to display a modal whenever user needs it.
+ * Makes use of MaterialUI Dialog for a modal.
+ */
 class Modal extends Component {
 
     componentDidUpdate() {

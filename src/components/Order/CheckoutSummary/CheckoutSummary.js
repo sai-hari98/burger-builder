@@ -1,5 +1,10 @@
 import React from 'react';
 import Burger from '../../Burger/Burger'
+
+/**
+ * Component to display summary of the order before filling contact-info
+ * @param {*} props - containing ingredient details
+ */
 const checkoutSummary = (props) => (
     <div className="container">
         <h3 className="text-center">Checkout Burger</h3>

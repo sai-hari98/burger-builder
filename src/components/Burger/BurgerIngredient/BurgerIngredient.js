@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import classes from './BurgerIngredient.module.css'
 
+/**
+ * Component to display a single burger ingredient
+ * @param {*} props - type of ingredient to display
+ */
 const burgerIngredient = (props) => {
     let ingredient = null;
     switch (props.type) {

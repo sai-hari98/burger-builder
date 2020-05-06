@@ -1,4 +1,6 @@
 import actions from './actions';
+//reducer to manipulate the store
+
 const initialState = {
     ingredients: {
         Cheese: 0,

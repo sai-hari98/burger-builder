@@ -14,6 +14,7 @@ const INGREDIENT_COST = {
     Bacon: 0.7
 }
 
+//Container component for burger builder
 class BurgerBuilder extends Component {
 
     state = {
@@ -30,30 +31,32 @@ class BurgerBuilder extends Component {
         // }).catch(error => { });
     }
 
-    addIngredient = (ingredient) => {
-        let ingredients = { ...this.state.ingredients };
-        let totalPrice = this.state.totalPrice;
-        totalPrice += INGREDIENT_COST[ingredient];
-        ingredients[ingredient]++;
-        this.setState({ ingredients: ingredients, totalPrice: totalPrice });
-        this.updatePurchasable(ingredients);
-    }
+    // addIngredient = (ingredient) => {
+    //     let ingredients = { ...this.state.ingredients };
+    //     let totalPrice = this.state.totalPrice;
+    //     totalPrice += INGREDIENT_COST[ingredient];
+    //     ingredients[ingredient]++;
+    //     this.setState({ ingredients: ingredients, totalPrice: totalPrice });
+    //     this.updatePurchasable(ingredients);
+    // }
 
-    removeIngredient = (ingredient) => {
-        let ingredients = { ...this.state.ingredients };
-        let totalPrice = this.state.totalPrice;
-        if (ingredients[ingredient] > 0) {
-            ingredients[ingredient]--;
-            totalPrice -= INGREDIENT_COST[ingredient];
-        }
-        this.setState({ ingredients: ingredients, totalPrice: totalPrice });
-        this.updatePurchasable(ingredients);
-    }
+    // removeIngredient = (ingredient) => {
+    //     let ingredients = { ...this.state.ingredients };
+    //     let totalPrice = this.state.totalPrice;
+    //     if (ingredients[ingredient] > 0) {
+    //         ingredients[ingredient]--;
+    //         totalPrice -= INGREDIENT_COST[ingredient];
+    //     }
+    //     this.setState({ ingredients: ingredients, totalPrice: totalPrice });
+    //     this.updatePurchasable(ingredients);
+    // }
 
+    //updating state to show the modal
     updatePurchasing = (show) => {
         this.setState({ purchasing: show });
     }
 
+    //to check whether customer has added ingredients and the burger is purchasable
     updatePurchasable = (ingredients) => {
         const ingredientsKeys = Object.keys(ingredients);
         const count = ingredientsKeys.map((ingredient) => {
@@ -68,6 +71,7 @@ class BurgerBuilder extends Component {
         return count > 0;
     }
 
+    //to route to checkout component
     checkoutHandler = () => {
         // const queryParams = [];
         // for (let ingredient in this.state.ingredients) {
@@ -78,26 +82,8 @@ class BurgerBuilder extends Component {
             pathname: '/checkout',
             // search: '?' + queryString + '&price=' + this.state.totalPrice
         });
-        // this.setState({ spinner: true });
-        // const order = {
-        //     ingredients: this.state.ingredients,
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: 'Sairam Hari',
-        //         address: 'no:5 abc street',
-        //         city: 'chennai',
-        //         zipcode: '600045'
-        //     },
-        //     deliveryMethod: 'fastest'
-        // }
-        // axiosOrders.post('/orders.json', order).then(response => {
-        //     console.log(response);
-        //     this.setState({ purchasing: false, spinner: false });
-        // }).catch(error => {
-        //     console.log(error);
-        //     this.setState({ purchasing: false, spinner: false });
-        // });
     }
+
     render() {
         let context = {
             ...this.state,
@@ -110,6 +96,7 @@ class BurgerBuilder extends Component {
             unitPrice: INGREDIENT_COST,
             checkout: this.checkoutHandler
         }
+        //circular progress to show a spinner
         let burger = (
             <div className="container">
                 <div className="row">
@@ -120,6 +107,8 @@ class BurgerBuilder extends Component {
             </div>
         )
         if (this.props.ings !== null) {
+            //BurgerBuilderContext to pass the state values from BurgerBuilder Component to BuildControls component.
+            //Refer to context object above to see the properties being added into context.
             burger = (
                 <div className="container">
                     <Burger ingredients={this.props.ings} />
@@ -133,6 +122,7 @@ class BurgerBuilder extends Component {
     }
 }
 
+//map state of redux as props to the component
 const mapStateToProps = (state) => {
     return {
         ings: state.ingredients,
@@ -140,6 +130,7 @@ const mapStateToProps = (state) => {
     }
 }
 
+//map actions of redux as props to the component
 const mapActionsToProps = (dispatch) => {
     return {
         addIngredient: (ingredient) => dispatch({ type: actions.ADD_INGREDIENT, payload: { name: ingredient } }),

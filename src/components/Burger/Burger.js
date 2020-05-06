@@ -1,6 +1,11 @@
 import React from 'react';
 import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient'
+
+/**
+ * Component to display a burger based on the ingredients added
+ * @param {*} props - containing the ingredients of the burger
+ */
 const burger = (props) => {
     let transformedIngredients = Object.keys(props.ingredients).map(
         ingredient => {

@@ -1,8 +1,16 @@
 import React from 'react';
 import classes from './Input.module.css';
 
+/**
+ * Component to present an input field based on the configuration.
+ * @param  props - config of the input field to generate
+ */
+
 const input = (props) => {
     let input = null;
+
+    //various case to generate different types of input like textbox, textarea, dropdown
+
     switch (props.elementType) {
         case 'input': input = <input type={props.elementConfig.type}
             id={props.fieldName.toLocaleLowerCase()}

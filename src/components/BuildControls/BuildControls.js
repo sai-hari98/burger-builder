@@ -3,7 +3,12 @@ import BuildControl from './BuildControl/BuildControl';
 import Modal from '../Common/Modal/Modal';
 import BurgerBuilderContext from '../../containers/BurgerBuilder/Context/BurgerBuilderContext';
 
+/**
+ * Component to display build controls to add and remove ingredients
+ * @param {*} props
+ */
 const BuildControls = (props) => {
+    //useContext to receive the values set as context in burger builder component
     const burgerBuilderContext = useContext(BurgerBuilderContext);
     const ingredientKeys = Object.keys(burgerBuilderContext.ingredients);
     const ingredientBuildControls = ingredientKeys.map((ingredient) => {

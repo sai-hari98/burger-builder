@@ -6,11 +6,17 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { connect } from 'react-redux'
 import actions from '../../../store/actions';
+
+/**
+ * Component to display the form to fill the customer details. 
+ * All form validations are included for the input fields.
+ */
 class ContactInfo extends Component {
 
     constructor() {
         super()
         this.state = {
+            //contactForm contains the config for the form
             contactForm: {
                 name: this.elementConfigGenerator('input', 'text', 'Enter your name', '', 'Name'),
                 address: this.elementConfigGenerator('textarea', '', 'Enter your address', '', 'Address'),
@@ -18,6 +24,7 @@ class ContactInfo extends Component {
                 zipcode: this.elementConfigGenerator('input', 'text', 'Enter your zipcode', '', 'Zipcode'),
                 deliverymethod: this.elementConfigGenerator('select', '', '', 'fastest', 'DeliveryMethod', [{ value: 'fastest', displayValue: 'Fastest' }, { value: 'cheapest', displayValue: 'Cheapest' }]),
             },
+            //other local UI state
             spinner: false,
             openSnackbar: false,
             errorMessage: '',
@@ -25,13 +32,19 @@ class ContactInfo extends Component {
         }
     }
 
+    //route back to checkout component
     backClickHandler = () => {
         this.props.history.goBack();
     }
 
+    /**
+     * To place the order on the server.
+     * Handles form validation.
+     */
     orderHandler = () => {
         let inputKeys = Object.keys(this.state.contactForm);
         let valid = true;
+        //formValid check
         for (let key of inputKeys) {
             if (!this.state.contactForm[key].valid) {
                 valid = false;
@@ -53,6 +66,7 @@ class ContactInfo extends Component {
                 deliveryMethod: this.state.contactForm.deliverymethod.value
             }
             axiosOrders.post('/orders.json', order).then(response => {
+                //action to clear ingredients in redux store after successful order placement
                 this.props.clearIngredients();
                 console.log(response);
                 this.props.history.replace('/burger-builder');
@@ -63,10 +77,13 @@ class ContactInfo extends Component {
             });
         }
     }
+
+    //event handler for input change
     inputChangeHandler = (event, key) => {
         let orderForm = { ...this.state.contactForm };
         let inputField = { ...orderForm[key] };
         inputField.value = event.target.value;
+        //checkValidity checks for validity of input given based on the validation config for the field
         inputField.valid = this.checkValidity(event.target.value, inputField.validation);
         inputField.dirty = true;
         orderForm[key] = inputField;
@@ -85,6 +102,10 @@ class ContactInfo extends Component {
         });
     }
 
+    /**
+     * method to check validity of a form control
+     * value and validation config of the input field are obtained
+     */
     checkValidity = (value, validation) => {
         let isValid = true;
         if (!validation) {
@@ -106,6 +127,9 @@ class ContactInfo extends Component {
         return isValid;
     }
 
+    /**
+     * Method to generate form control config for every input field
+     */
     elementConfigGenerator = (elType, type, placeholder, value, fieldName, options = []) => {
         let validation = {
             required: true
@@ -138,6 +162,7 @@ class ContactInfo extends Component {
         return configObject;
     }
 
+    //to close error snackbar 
     handleCloseSnackbar = () => {
         this.setState({ openSnackbar: false });
     }
@@ -173,6 +198,7 @@ class ContactInfo extends Component {
     }
 }
 
+//map state of redux as props to the component
 const mapStateToProps = state => {
     return {
         ingredients: state.ingredients,
@@ -180,6 +206,7 @@ const mapStateToProps = state => {
     }
 }
 
+//map actions of redux as props to the component
 const mapActionsToProps = dispatch => {
     return {
         clearIngredients: () => dispatch({ type: actions.CLEAR_INGREDIENTS })

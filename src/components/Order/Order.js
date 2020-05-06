@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * component to display a single order in a card.
+ * Card designed using bootstrap classes
+ * @param {*} props - contains order details
+ */
 const order = (props) => {
 
     let ingredients = [];
