@@ -5,10 +5,14 @@ import Checkout from './containers/Checkout/Checkout';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import ContactInfo from './containers/Checkout/ContactInfo/ContactInfo';
 import Orders from './containers/Orders/Orders';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './store/reducer';
 class App extends Component {
   render() {
+    const store = createStore(reducer);
     return (
-      <div>
+      <Provider store={store}>
         <BrowserRouter>
           <Layout>
             <Switch>
@@ -20,7 +24,7 @@ class App extends Component {
             </Switch>
           </Layout>
         </BrowserRouter>
-      </div>
+      </Provider>
     );
   }
 }

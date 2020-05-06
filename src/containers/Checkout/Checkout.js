@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import { connect } from 'react-redux'
 class Checkout extends Component {
 
     state = {
@@ -35,15 +36,14 @@ class Checkout extends Component {
 
     render() {
         // let isEmpty = Object.keys(this.state.ingredients).length === 0;
-        // let ingredientCount = 0
-        // for (let ingredient of Object.keys(this.state.ingredients)) {
-        //     ingredientCount += this.state.ingredients[ingredient];
-        // }
-        let isDisable = this.props.location.search === '';
-        console.log(this.props.location.search);
-        console.log(isDisable);
+        let ingredientCount = 0
+        for (let ingredient of Object.keys(this.props.ingredients)) {
+            ingredientCount += this.props.ingredients[ingredient];
+        }
+        // let isDisable = this.props.location.search === '';
+        let isDisable = ingredientCount === 0;
         return (
-            <CheckoutSummary ingredients={this.state.ingredients}
+            <CheckoutSummary ingredients={this.props.ingredients}
                 cancel={this.checkoutCancelled}
                 continue={this.checkoutConfirmed}
                 disabled={isDisable} />
@@ -51,4 +51,9 @@ class Checkout extends Component {
     }
 }
 
-export default Checkout;
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients
+    }
+}
+export default connect(mapStateToProps)(Checkout);

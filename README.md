@@ -35,3 +35,9 @@ Input validations are done without the use of any third party packages.
 ### [`MaterialUI`](https://github.com/mui-org/material-ui)
 
 MaterialUI for adding cool UI components to the react app.
+
+### [`Redux`](https://github.com/reduxjs/redux)
+
+Redux for easy state management of the application. A global store of the state is maintained.
+
+**[React Redux](https://github.com/reduxjs/react-redux) - a package to connect react app to redux** 

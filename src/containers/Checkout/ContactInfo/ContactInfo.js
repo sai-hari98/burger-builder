@@ -4,6 +4,8 @@ import { CircularProgress } from '@material-ui/core';
 import Input from '../../../components/Common/Input/Input';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { connect } from 'react-redux'
+import actions from '../../../store/actions';
 class ContactInfo extends Component {
 
     constructor() {
@@ -40,8 +42,8 @@ class ContactInfo extends Component {
         if (valid) {
             this.setState({ spinner: true });
             const order = {
-                ingredients: this.props.location.state.ingredients,
-                price: this.props.location.state.totalPrice,
+                ingredients: this.props.ingredients,
+                price: this.props.totalPrice,
                 customer: {
                     name: this.state.contactForm.name.value,
                     address: this.state.contactForm.address.value,
@@ -51,6 +53,7 @@ class ContactInfo extends Component {
                 deliveryMethod: this.state.contactForm.deliverymethod.value
             }
             axiosOrders.post('/orders.json', order).then(response => {
+                this.props.clearIngredients();
                 console.log(response);
                 this.props.history.replace('/burger-builder');
             }).catch(error => {
@@ -170,4 +173,16 @@ class ContactInfo extends Component {
     }
 }
 
-export default ContactInfo;
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients,
+        totalPrice: state.totalPrice
+    }
+}
+
+const mapActionsToProps = dispatch => {
+    return {
+        clearIngredients: () => dispatch({ type: actions.CLEAR_INGREDIENTS })
+    }
+}
+export default connect(mapStateToProps, mapActionsToProps)(ContactInfo);
