@@ -6,7 +6,7 @@ import BurgerBuilderContext from './Context/BurgerBuilderContext';
 import withErrorHandler from '../../hoc/withErrorHandler/WithErrorHandler';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux'
-import actions from '../../store/actions';
+import * as actions from '../../store/actions/index';
 const INGREDIENT_COST = {
     Salad: 0.5,
     Meat: 1.5,
@@ -24,11 +24,8 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        // console.log('Burger Builder componentDidMount');
-        // axiosOrders.get('/ingredients.json').then(response => {
-        //     this.setState({ ingredients: response.data });
-        //     console.log('Ingredients data obtained');
-        // }).catch(error => { });
+        console.log('Burger Builder componentDidMount');
+        this.props.initIngredients();
     }
 
     // addIngredient = (ingredient) => {
@@ -85,17 +82,6 @@ class BurgerBuilder extends Component {
     }
 
     render() {
-        let context = {
-            ...this.state,
-            purchasable: this.updatePurchasable(this.props.ings),
-            ingredients: this.props.ings,
-            totalPrice: this.props.totalPrice,
-            click: this.updatePurchasing,
-            add: this.props.addIngredient,
-            remove: this.props.removeIngredient,
-            unitPrice: INGREDIENT_COST,
-            checkout: this.checkoutHandler
-        }
         //circular progress to show a spinner
         let burger = (
             <div className="container">
@@ -109,6 +95,17 @@ class BurgerBuilder extends Component {
         if (this.props.ings !== null) {
             //BurgerBuilderContext to pass the state values from BurgerBuilder Component to BuildControls component.
             //Refer to context object above to see the properties being added into context.
+            let context = {
+                ...this.state,
+                purchasable: this.updatePurchasable(this.props.ings),
+                ingredients: this.props.ings,
+                totalPrice: this.props.totalPrice,
+                click: this.updatePurchasing,
+                add: this.props.addIngredient,
+                remove: this.props.removeIngredient,
+                unitPrice: INGREDIENT_COST,
+                checkout: this.checkoutHandler
+            };
             burger = (
                 <div className="container">
                     <Burger ingredients={this.props.ings} />
@@ -133,8 +130,9 @@ const mapStateToProps = (state) => {
 //map actions of redux as props to the component
 const mapActionsToProps = (dispatch) => {
     return {
-        addIngredient: (ingredient) => dispatch({ type: actions.ADD_INGREDIENT, payload: { name: ingredient } }),
-        removeIngredient: (ingredient) => dispatch({ type: actions.REMOVE_INGREDIENT, payload: { name: ingredient } })
+        addIngredient: (ingredient) => dispatch(actions.addIngredient(ingredient)),
+        removeIngredient: (ingredient) => dispatch(actions.removeIngredient(ingredient)),
+        initIngredients: () => dispatch(actions.initIngredients())
     }
 }
 export default connect(mapStateToProps, mapActionsToProps)(withErrorHandler(BurgerBuilder, axiosOrders));

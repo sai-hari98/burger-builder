@@ -5,13 +5,15 @@ import Checkout from './containers/Checkout/Checkout';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import ContactInfo from './containers/Checkout/ContactInfo/ContactInfo';
 import Orders from './containers/Orders/Orders';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import reducer from './store/reducer';
+import burgerBuilder from './store/reducers/burgerBuilder';
 class App extends Component {
   render() {
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     //redux store creation to maintain a global application state
-    const store = createStore(reducer);
+    const store = createStore(burgerBuilder, composeEnhancers(applyMiddleware(thunk)));
     //BrowserRouter to support routing in the app
     //Switch - to render only one of the routes
     //Route - define the component to display for various routes

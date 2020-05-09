@@ -5,7 +5,7 @@ import Input from '../../../components/Common/Input/Input';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { connect } from 'react-redux'
-import actions from '../../../store/actions';
+import * as actions from '../../../store/actions/index';
 
 /**
  * Component to display the form to fill the customer details. 
@@ -68,7 +68,6 @@ class ContactInfo extends Component {
             axiosOrders.post('/orders.json', order).then(response => {
                 //action to clear ingredients in redux store after successful order placement
                 this.props.clearIngredients();
-                console.log(response);
                 this.props.history.replace('/burger-builder');
             }).catch(error => {
                 console.log(error);
@@ -209,7 +208,7 @@ const mapStateToProps = state => {
 //map actions of redux as props to the component
 const mapActionsToProps = dispatch => {
     return {
-        clearIngredients: () => dispatch({ type: actions.CLEAR_INGREDIENTS })
+        clearIngredients: () => dispatch(actions.clearIngredients())
     }
 }
 export default connect(mapStateToProps, mapActionsToProps)(ContactInfo);
