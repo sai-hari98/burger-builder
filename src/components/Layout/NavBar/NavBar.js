@@ -31,6 +31,15 @@ const NavBar = (props) => {
         props.logout();
         props.history.push('/');
     }
+    let uLinks = [
+        <Link to="/checkout" className="nav-link">Checkout</Link>,
+        <Link to="/orders" className="nav-link">Orders</Link>,
+        <Link to="/" onClick={logoutHandler} className="nav-link">Logout</Link>
+    ];
+
+    let nonULinks = [
+        <Link to="/login" className="nav-link">Login</Link>
+    ];
     let userLinks = (
         <Aux>
             <li className="nav-item active">
@@ -40,7 +49,7 @@ const NavBar = (props) => {
                 <Link to="/orders" className="nav-link">Orders</Link>
             </li>
             <li className="nav-item active">
-                <Link to ="/" onClick={logoutHandler} className="nav-link">Logout</Link>
+                <Link to="/" onClick={logoutHandler} className="nav-link">Logout</Link>
             </li>
         </Aux>
     );
@@ -50,6 +59,14 @@ const NavBar = (props) => {
             <Link to="/login" className="nav-link">Login</Link>
         </li>
     )
+
+    const routingHandler = (route) => {
+        if (route == '/') {
+            logoutHandler();
+        } else {
+            props.history.push(route);
+        }
+    }
     //Link to define a router link to route to the component given in 'to' prop
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -59,7 +76,19 @@ const NavBar = (props) => {
                     <li className="nav-item active">
                         <Link to="/burger-builder" className="nav-link">Burger Builder</Link>
                     </li>
-                    {props.loggedIn ? userLinks : nonUserLinks}
+                    {props.loggedIn ? uLinks.map((link, index) => {
+                        return (
+                            <li className="nav-item active" key={index}>
+                                {link}
+                            </li>
+                        )
+                    }) : nonULinks.map((link, index) => {
+                        return (
+                            <li className="nav-item active" key={index}>
+                                {link}
+                            </li>
+                        )
+                    })}
                 </ul>
             </div>
             <Button className="text-white" onClick={toggleDrawer(true)}
@@ -73,12 +102,24 @@ const NavBar = (props) => {
                 onOpen={toggleDrawer(true)}>
                 <SideDrawer toggleDrawer={toggleDrawer}>
                     <List>
-                        <ListItem button key='burger-builder'>
-                            <ListItemText primary='Burger Builder' />
+                        <ListItem button key='burger-builder' onClick={() => routingHandler('/burger-builder')}>
+                            <ListItemText>
+                                Burger Builder
+                            </ListItemText>
                         </ListItem>
-                        <ListItem button key='checkout'>
-                            <ListItemText primary='Checkout' />
-                        </ListItem>
+                        {props.loggedIn ? uLinks.map((link, index) => {
+                            return (
+                                <ListItem button key={index} onClick={() => routingHandler(link.props.to)}>
+                                    {link.props.children}
+                                </ListItem>
+                            )
+                        }) : nonULinks.map((link, index) => {
+                            return (
+                                <ListItem button key={index} onClick={() => routingHandler(link.props.to)}>
+                                    {link.props.children}
+                                </ListItem>
+                            )
+                        })}
                     </List>
                 </SideDrawer>
             </SwipeableDrawer>
