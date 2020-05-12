@@ -2,15 +2,21 @@ import React from 'react';
 import Auxillary from '../../hoc/Auxillary';
 import NavBar from './NavBar/NavBar';
 import BurgerBuilder from '../../containers/BurgerBuilder/BurgerBuilder';
-import Checkout from '../../containers/Checkout/Checkout';
 import Auth from '../../containers/Auth/Auth';
 import ContactInfo from '../../containers/Checkout/ContactInfo/ContactInfo';
-import Orders from '../../containers/Orders/Orders';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { Component } from 'react';
+import asyncComponent from '../../hoc/asyncComponent/asyncComponent';
 
+const asyncCheckout = asyncComponent(() => {
+    return import('../../containers/Checkout/Checkout');
+});
+
+const asyncOrders = asyncComponent(() => {
+    return import('../../containers/Orders/Orders');
+});
 
 class Layout extends Component {
 
@@ -45,9 +51,9 @@ class Layout extends Component {
         if (this.props.loggedIn) {
             routes = (
                 <Auxillary>
-                    <Route path="/checkout" exact component={Checkout} />
+                    <Route path="/checkout" exact component={asyncCheckout} />
                     <Route path="/checkout/contact-info" exact component={ContactInfo} />
-                    <Route path="/orders" exact component={Orders} />
+                    <Route path="/orders" exact component={asyncOrders} />
                 </Auxillary>
             );
         } else {

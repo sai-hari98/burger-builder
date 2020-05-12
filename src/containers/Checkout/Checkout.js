@@ -43,13 +43,17 @@ class Checkout extends Component {
         //check to disable the order button based on number of ingredients(ingredientsCount<=0)
         // let isEmpty = Object.keys(this.state.ingredients).length === 0;
         let ingredientCount = 0
-        for (let ingredient of Object.keys(this.props.ingredients)) {
-            ingredientCount += this.props.ingredients[ingredient];
+        if (this.props.ingredients) {
+            for (let ingredient of Object.keys(this.props.ingredients)) {
+                ingredientCount += this.props.ingredients[ingredient];
+            }
         }
-        // let isDisable = this.props.location.search === '';
-        let isDisable = ingredientCount === 0;
+        //this.props.ingredients is checked for null for the scenario:
+        //when checkout page is visited from orders page without visiting burger builder page from app start
+        //burger builder initializes the ingredients
+        let isDisable = ingredientCount === 0 || !this.props.ingredients;
         return (
-            <CheckoutSummary ingredients={this.props.ingredients}
+            <CheckoutSummary ingredients={this.props.ingredients ? this.props.ingredients : {}}
                 cancel={this.checkoutCancelled}
                 continue={this.checkoutConfirmed}
                 disabled={isDisable} />
