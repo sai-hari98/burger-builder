@@ -1,9 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles({
     list: {
@@ -25,14 +22,7 @@ export default function SideDrawer(props) {
             onClick={props.toggleDrawer(false)}
             onKeyDown={props.toggleDrawer(false)}
         >
-            <List>
-                <ListItem button key='burger-builder'>
-                    <ListItemText primary='Burger Builder' />
-                </ListItem>
-                <ListItem button key='checkout'>
-                    <ListItemText primary='Checkout' />
-                </ListItem>
-            </List>
+            {props.children}
         </div>
     );
     return list;

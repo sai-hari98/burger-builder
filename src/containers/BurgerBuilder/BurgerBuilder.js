@@ -20,12 +20,25 @@ class BurgerBuilder extends Component {
     state = {
         // purchasable: false,
         purchasing: false,
-        spinner: false
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.ings != nextProps.ings || this.props.totalPrice !== nextProps.totalPrice) {
+            return true;
+        }
+        if (nextState.purchasing !== this.state.purchasing) {
+            return true;
+        }
+        return false;
     }
 
     componentDidMount() {
         console.log('Burger Builder componentDidMount');
         this.props.initIngredients();
+    }
+
+    componentDidUpdate() {
+        console.log('Burger Builder ComponentDidUpdate', this.props);
     }
 
     // addIngredient = (ingredient) => {
@@ -61,10 +74,6 @@ class BurgerBuilder extends Component {
         }).reduce((sum, el) => {
             return sum + el;
         });
-        console.log(count);
-        // this.setState((prevState, props) => {
-        //     return { purchasable: count > 0 }
-        // });
         return count > 0;
     }
 
@@ -122,8 +131,8 @@ class BurgerBuilder extends Component {
 //map state of redux as props to the component
 const mapStateToProps = (state) => {
     return {
-        ings: state.ingredients,
-        totalPrice: state.totalPrice
+        ings: state.burger.ingredients,
+        totalPrice: state.burger.totalPrice
     }
 }
 

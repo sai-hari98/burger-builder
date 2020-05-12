@@ -60,7 +60,7 @@ class Checkout extends Component {
 //map state of redux as props to the component
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients
+        ingredients: state.burger.ingredients
     }
 }
 export default connect(mapStateToProps)(Checkout);

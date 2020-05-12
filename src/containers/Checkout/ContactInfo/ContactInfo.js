@@ -63,9 +63,10 @@ class ContactInfo extends Component {
                     city: this.state.contactForm.city.value,
                     zipcode: this.state.contactForm.zipcode.value
                 },
-                deliveryMethod: this.state.contactForm.deliverymethod.value
+                deliveryMethod: this.state.contactForm.deliverymethod.value,
+                userId: this.props.userId
             }
-            axiosOrders.post('/orders.json', order).then(response => {
+            axiosOrders.post('/orders.json?auth=' + this.props.token, order).then(response => {
                 //action to clear ingredients in redux store after successful order placement
                 this.props.clearIngredients();
                 this.props.history.replace('/burger-builder');
@@ -200,8 +201,10 @@ class ContactInfo extends Component {
 //map state of redux as props to the component
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        ingredients: state.burger.ingredients,
+        totalPrice: state.burger.totalPrice,
+        token: state.auth.idToken,
+        userId: state.auth.userId
     }
 }
 
