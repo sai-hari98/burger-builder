@@ -6,6 +6,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { connect } from 'react-redux'
 import * as actions from '../../../store/actions/index';
+import * as utility from '../../../utility/utility';
 
 /**
  * Component to display the form to fill the customer details. 
@@ -71,9 +72,7 @@ class ContactInfo extends Component {
                 this.props.clearIngredients();
                 this.props.history.replace('/burger-builder');
             }).catch(error => {
-                console.log(error);
                 this.setState({ spinner: false });
-                alert('error occurred');
             });
         }
     }
@@ -84,47 +83,13 @@ class ContactInfo extends Component {
         let inputField = { ...orderForm[key] };
         inputField.value = event.target.value;
         //checkValidity checks for validity of input given based on the validation config for the field
-        inputField.valid = this.checkValidity(event.target.value, inputField.validation);
+        inputField.valid = utility.checkValidity(event.target.value, inputField.validation);
         inputField.dirty = true;
         orderForm[key] = inputField;
         //callback is used because formValid depends on the setState of contactForm
         this.setState({ contactForm: orderForm }, () => {
-            let formValid = true;
-            for (let inputField of Object.keys(this.state.contactForm)) {
-                formValid = this.state.contactForm[inputField].valid && formValid;
-                if (!formValid) {
-                    break;
-                }
-            }
-            console.log(formValid);
-            this.setState({ formValid: formValid });
-            console.log(inputField.validation);
+            this.setState({ formValid: utility.checkFormValidity(this.state.contactForm) });
         });
-    }
-
-    /**
-     * method to check validity of a form control
-     * value and validation config of the input field are obtained
-     */
-    checkValidity = (value, validation) => {
-        let isValid = true;
-        if (!validation) {
-            return true;
-        }
-
-        if (validation.required) {
-            isValid = isValid && value.trim() != '';
-        }
-        if (validation.minlength) {
-            isValid = isValid && value.trim().length >= validation.minlength;
-        }
-        if (validation.maxlength) {
-            isValid = isValid && value.trim().length <= validation.maxlength;
-        }
-        if (validation.numeric) {
-            isValid = isValid && !isNaN(value);
-        }
-        return isValid;
     }
 
     /**
@@ -134,7 +99,7 @@ class ContactInfo extends Component {
         let validation = {
             required: true
         }
-        if (fieldName == 'Zipcode') {
+        if (fieldName === 'Zipcode') {
             validation.maxlength = 6;
             validation.numeric = true;
             validation.minlength = 6;
@@ -150,7 +115,7 @@ class ContactInfo extends Component {
                 type: type
             },
             value: value,
-            valid: fieldName == 'DeliveryMethod',
+            valid: fieldName === 'DeliveryMethod',
             dirty: false
         }
         if (options.length > 0) {

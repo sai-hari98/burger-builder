@@ -9,10 +9,8 @@ class AuthModal extends Component {
 
     signupHandler = (data) => {
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD4_db1tQSA-WN_lmV1nexNukH8BOX0m9c', data).then(response => {
-            console.log(response.data);
             this.props.showModal(false);
         }).catch(error => {
-            console.log(error);
         });
     }
 

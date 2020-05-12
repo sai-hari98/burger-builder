@@ -4,7 +4,6 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
 import SideDrawer from './SideDrawer/SideDrawer';
 import { withRouter } from 'react-router-dom';
-import Aux from '../../../hoc/Auxillary';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
@@ -40,28 +39,9 @@ const NavBar = (props) => {
     let nonULinks = [
         <Link to="/login" className="nav-link">Login</Link>
     ];
-    let userLinks = (
-        <Aux>
-            <li className="nav-item active">
-                <Link to="/checkout" className="nav-link">Checkout</Link>
-            </li>
-            <li className="nav-item active">
-                <Link to="/orders" className="nav-link">Orders</Link>
-            </li>
-            <li className="nav-item active">
-                <Link to="/" onClick={logoutHandler} className="nav-link">Logout</Link>
-            </li>
-        </Aux>
-    );
-
-    let nonUserLinks = (
-        <li className="nav-item active">
-            <Link to="/login" className="nav-link">Login</Link>
-        </li>
-    )
 
     const routingHandler = (route) => {
-        if (route == '/') {
+        if (route === '/') {
             logoutHandler();
         } else {
             props.history.push(route);

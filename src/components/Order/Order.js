@@ -9,14 +9,12 @@ const order = (props) => {
 
     let ingredients = [];
     for (let ingredient of Object.keys(props.order.ingredients)) {
-        {
-            if (props.order.ingredients[ingredient]) {
-                ingredients.push((<div className="row mt-2" key={ingredient}>
-                    <div className="col-12">
-                        {ingredient} : {props.order.ingredients[ingredient]}
-                    </div>
-                </div>));
-            }
+        if (props.order.ingredients[ingredient]) {
+            ingredients.push((<div className="row mt-2" key={ingredient}>
+                <div className="col-12">
+                    {ingredient} : {props.order.ingredients[ingredient]}
+                </div>
+            </div>));
         }
     }
 

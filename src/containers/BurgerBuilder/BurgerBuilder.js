@@ -23,7 +23,7 @@ class BurgerBuilder extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.ings != nextProps.ings || this.props.totalPrice !== nextProps.totalPrice) {
+        if (this.props.ings !== nextProps.ings || this.props.totalPrice !== nextProps.totalPrice) {
             return true;
         }
         if (nextState.purchasing !== this.state.purchasing) {
@@ -40,26 +40,6 @@ class BurgerBuilder extends Component {
     componentDidUpdate() {
         console.log('Burger Builder ComponentDidUpdate', this.props);
     }
-
-    // addIngredient = (ingredient) => {
-    //     let ingredients = { ...this.state.ingredients };
-    //     let totalPrice = this.state.totalPrice;
-    //     totalPrice += INGREDIENT_COST[ingredient];
-    //     ingredients[ingredient]++;
-    //     this.setState({ ingredients: ingredients, totalPrice: totalPrice });
-    //     this.updatePurchasable(ingredients);
-    // }
-
-    // removeIngredient = (ingredient) => {
-    //     let ingredients = { ...this.state.ingredients };
-    //     let totalPrice = this.state.totalPrice;
-    //     if (ingredients[ingredient] > 0) {
-    //         ingredients[ingredient]--;
-    //         totalPrice -= INGREDIENT_COST[ingredient];
-    //     }
-    //     this.setState({ ingredients: ingredients, totalPrice: totalPrice });
-    //     this.updatePurchasable(ingredients);
-    // }
 
     //updating state to show the modal
     updatePurchasing = (show) => {

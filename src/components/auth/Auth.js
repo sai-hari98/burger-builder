@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/Auxillary';
 import classes from './Auth.module.css';
+import * as utility from '../../utility/utility';
 
 class Auth extends Component {
 
@@ -36,35 +37,11 @@ class Auth extends Component {
         let inputFieldCopy = { ...authFormCopy[name] };
         inputFieldCopy.value = event.target.value;
         inputFieldCopy.dirty = true;
-        inputFieldCopy.valid = this.checkValidity(event.target.value, inputFieldCopy.validation);
+        inputFieldCopy.valid = utility.checkValidity(event.target.value, inputFieldCopy.validation);
         authFormCopy[name] = inputFieldCopy;
         this.setState({ authForm: authFormCopy }, () => {
-            this.setState({ formValid: this.checkFormValidity() });
+            this.setState({ formValid: utility.checkFormValidity(this.state.authForm) });
         });
-    }
-
-    checkFormValidity = () => {
-        let valid = true;
-        for (let key of Object.keys(this.state.authForm)) {
-            valid = valid && this.state.authForm[key].valid;
-        }
-        return valid;
-    }
-
-    checkValidity = (value, validation) => {
-        let valid = true;
-        if (validation.required) {
-            valid = valid && value.trim() !== '';
-        }
-        if (validation.email) {
-            valid = valid && this.validateEmail(value);
-        }
-        return valid;
-    }
-
-    validateEmail = (email) => {
-        let regEx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-        return regEx.test(email);
     }
 
     submitHandler = () => {

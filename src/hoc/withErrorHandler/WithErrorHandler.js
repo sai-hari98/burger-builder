@@ -22,8 +22,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
             });
             //axios interceptors are used to catch the errors and handle them
             this.responseInterceptor = axios.interceptors.response.use(null, error => {
-                console.log('Inside Error');
-                console.log(error);
                 this.setState({ error: error });
             });
         }

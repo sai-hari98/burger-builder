@@ -17,7 +17,6 @@ class Auth extends Component {
 
     loginHandler = (data) => {
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD4_db1tQSA-WN_lmV1nexNukH8BOX0m9c', data).then(response => {
-            console.log(response.data);
             this.props.signIn(response.data);
             localStorage.setItem('idToken', response.data.idToken);
             localStorage.setItem('refreshToken', response.data.refreshToken);
