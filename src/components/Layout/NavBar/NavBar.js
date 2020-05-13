@@ -16,7 +16,7 @@ import * as actions from '../../../store/actions/index';
  * Created using bootstrap navbar classes.
  * @param {*} props 
  */
-const NavBar = (props) => {
+export const NavBar = (props) => {
     const [state, changeState] = useState({ sideDrawer: false });
 
     const toggleDrawer = (open) => (event) => {
